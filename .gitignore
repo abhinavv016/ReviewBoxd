@@ -1,0 +1,58 @@
+# ===================
+# Node.js dependencies
+# ===================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ===================
+# Build / Output
+# ===================
+backend/dist/
+backend/build/
+frontend/.next/
+frontend/out/
+proxy-server/dist/
+proxy-server/build/
+
+# ===================
+# Environment files (keep secrets safe)
+# ===================
+*.env
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+
+# ===================
+# Prisma
+# ===================
+**/prisma/migrations/
+
+# ===================
+# IDE / Editor / OS
+# ===================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===================
+# Testing / Coverage
+# ===================
+coverage/
+.nyc_output/
+
+# ===================
+# TypeScript build info
+# ===================
+*.tsbuildinfo
+
+# ===================
+# Misc
+# ===================
+*.swp
+*.swo
