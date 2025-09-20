@@ -20,6 +20,10 @@ export default function CreateAccount({ onClose }: AccountProps) {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) onClose();
+    };
+
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
 
@@ -42,13 +46,14 @@ export default function CreateAccount({ onClose }: AccountProps) {
 
     return (
         <motion.div
-            className="fixed inset-0 flex justify-center items-center"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60"
             key="modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={handleOverlayClick}
         >
-            <div className="w-[420px] h-[549px] shadow-2xl bg-[#435565] rounded-lg">
+            <div className="w-[420px] h-[549px] shadow-2xl bg-[#435565] rounded-lg relative">
                 <div className="ml-10">
                     <div className=" flex items-center my-6 text-[#99A9BB] ">
                         JOIN REVIEWBOXD

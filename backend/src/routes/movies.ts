@@ -9,7 +9,6 @@ const PROXY_BASE_URL = "http://localhost:3001";
 router.get("/movies/popular", async (req: Request, res: Response) => {
     try {
         const response = await axios.get(`${PROXY_BASE_URL}/movies/popular`);
-        console.log(response.data.results);
         const results =
             response.data.results?.map((movie: any) => ({
                 id: movie.id,
@@ -31,8 +30,6 @@ router.get("/movies/popular", async (req: Request, res: Response) => {
 router.get("/tv/popular", async (req: Request, res: Response) => {
     try {
         const response = await axios.get(`${PROXY_BASE_URL}/tv/popular`);
-
-        console.log(response.data.results);
         const results =
             response.data.results?.map((tv: any) => ({
                 id: tv.id,

@@ -1,0 +1,6 @@
+major glitch-- onclick the signin, create account component -- solved
+
+19/09/2025
+
+what to do--
+setup carousal in series component full setup

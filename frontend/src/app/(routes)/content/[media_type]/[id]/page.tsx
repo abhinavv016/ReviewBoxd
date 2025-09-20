@@ -2,9 +2,11 @@ import Cast from "@/components/contentPageComp/castComp";
 import Crew from "@/components/contentPageComp/crewComp";
 import Details from "@/components/contentPageComp/detailsComp";
 import fetchComp from "@/components/contentPageComp/fetchComp";
-import Navbar from "@/components/navbar";
+
 import Tabs from "@/components/contentPageComp/tabsComp";
+import Navbar from "@/components/navbar";
 import WatchedMovie from "@/components/watchedComponent/watchMovie";
+import WatchedSeries from "@/components/watchedComponent/watchSeries";
 
 export default async function ContentPage({
     params,
@@ -24,6 +26,7 @@ export default async function ContentPage({
     const country = details.country;
     const spoken_language = details.spoken_language;
     const genres = details.genres
+    const networks = result.data.details.networks[0].name;
 
     const content = result.data.details;
 
@@ -55,15 +58,15 @@ export default async function ContentPage({
                 </div>
 
                 {/* Content poster */}
-                <div className="flex relative z-30 mt-[35rem]">
-                    <div className="absolute top-0 left-30 w-70 border-2 border-slate-500 rounded-md">
+                <div className="flex z-30 mt-[35rem]">
+                    <div className="w-70 h-100 ml-30 border-2 border-slate-500 rounded-md z-40 flex-shrink-0">
                         <img
                             src={`https://image.tmdb.org/t/p/original${content.poster_path}`}
                             className="w-full h-full object-cover rounded-md"
                         />
                     </div>
 
-                    <div className="flex items-center ml-120 mt-40 text-white">
+                    <div className="flex items-center ml-25 mt-40 text-white">
                         <div className="flex flex-col items-start ">
 
                             <div className="flex items-center gap-4">
@@ -78,9 +81,16 @@ export default async function ContentPage({
                                 </span>
 
                                 {/* directors name */}
-                                <span className="text-2xl mt-2">
-                                    <strong>Directed by</strong> {directors || "N/A"}
-                                </span>
+                                {directors && (
+                                    <span className="text-2xl mt-2">
+                                        <strong>Directed by</strong> {directors}
+                                    </span>
+                                )}
+                                {networks && (
+                                    <span className="text-2xl mt-2">
+                                        <strong>Produced by</strong> {networks}
+                                    </span>
+                                )}
                             </div>
 
                             {/* tagline of movie */}
@@ -104,7 +114,8 @@ export default async function ContentPage({
                                         genres: genres ?? [],
                                     }}
                                 />
-                                {directors && <WatchedMovie/> }
+                                {directors && <WatchedMovie />}
+                                {!directors && <WatchedSeries id={params.id} media_type={params.media_type} />}
                             </div>
                         </div>
                     </div>
