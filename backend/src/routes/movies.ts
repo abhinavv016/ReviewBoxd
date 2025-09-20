@@ -105,6 +105,25 @@ router.get("/content/:media_type/:id", async (req, res) => {
     }
 });
 
+router.get("/content/tv/:id/season/:season", async(req: Request, res: Response) => {
+    const{ id, season } = req.params;
+
+    try {
+        const response = await axios.get(`${PROXY_BASE_URL}/tv/${id}/season/${season}`);
+        const Seasons = response.data
+        res.json({
+            Seasons
+        });
+    } catch (err: any) {
+        console.error(
+            "Failed fetching content:",
+            err.response?.status,
+            err.response?.data
+        );
+        res.status(500).json({ error: "Failed to fetch content" });
+    }
+})
+
 router.get("/content/:media_type/:id/keywords", async (req, res) =>{
     const {media_type, id } = req.params;
     if (!["movie", "tv"].includes(media_type)) {

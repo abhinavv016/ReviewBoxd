@@ -1,7 +1,7 @@
 import Cast from "@/components/contentPageComp/castComp";
 import Crew from "@/components/contentPageComp/crewComp";
 import Details from "@/components/contentPageComp/detailsComp";
-import fetchComp from "@/components/contentPageComp/fetchComp";
+import fetchComp from "@/lib/fetchDetails";
 
 import Tabs from "@/components/contentPageComp/tabsComp";
 import Navbar from "@/components/navbar";

@@ -6,8 +6,6 @@ import axios from "axios";
 dotenv.config({ path: ".env" });
 
 const app = express();
-
-// Enable CORS (adjust origin in production)
 app.use(cors());
 
 const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
@@ -18,18 +16,12 @@ if (!TMDB_BEARER_TOKEN) {
     throw new Error("❌ TMDB_BEARER_TOKEN is missing in .env");
 }
 
-const axiosInstance = axios.create({
-    baseURL: TMDB_BASE_URL,
-    headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
-});
-
 // ---------------- Routes ---------------- //
 
-// Get popular movies
 app.get("/movies/popular", async (_req: Request, res: Response) => {
     try {
-        const { data } = await axiosInstance.get("/movie/popular", {
-            params: { language: "en-US", page: 1 },
+        const { data } = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
         });
         res.json(data);
     } catch (error: any) {
@@ -38,11 +30,10 @@ app.get("/movies/popular", async (_req: Request, res: Response) => {
     }
 });
 
-// Get popular series
 app.get("/tv/popular", async (_req: Request, res: Response) => {
     try {
-        const { data } = await axiosInstance.get("/tv/popular", {
-            params: { language: "en-US", page: 1 },
+        const { data } = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
         });
         res.json(data);
     } catch (error: any) {
@@ -51,16 +42,14 @@ app.get("/tv/popular", async (_req: Request, res: Response) => {
     }
 });
 
-// Search combined movies and series
 app.get("/search", async (req: Request, res: Response) => {
     const query = req.query.query as string;
-    if (!query) {
-        return res.status(400).json({ error: "Query is required" });
-    }
+    if (!query) return res.status(400).json({ error: "Query is required" });
 
     try {
-        const { data } = await axiosInstance.get("/search/multi", {
-            params: { query, language: "en-US" },
+        const { data } = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
+            params: { query },
         });
         res.json({ content: data.results });
     } catch (error: any) {
@@ -69,14 +58,13 @@ app.get("/search", async (req: Request, res: Response) => {
     }
 });
 
-// Fetch movies/series details + credits
 app.get("/:media_type/:id", async (req: Request, res: Response) => {
     const { media_type, id } = req.params;
 
     try {
         const [details, crew] = await Promise.all([
-            axiosInstance.get(`/${media_type}/${id}`, { params: { language: "en-US" } }),
-            axiosInstance.get(`/${media_type}/${id}/credits`, { params: { language: "en-US" } }),
+            axios.get(`${TMDB_BASE_URL}/${media_type}/${id}`, { headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` } }),
+            axios.get(`${TMDB_BASE_URL}/${media_type}/${id}/credits`, { headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` } }),
         ]);
 
         res.json({
@@ -84,26 +72,33 @@ app.get("/:media_type/:id", async (req: Request, res: Response) => {
             crew: crew.data,
         });
     } catch (error: any) {
-        console.error(
-            "Failed fetching content:",
-            error.response?.status,
-            error.response?.data || error.message
-        );
+        console.error("Failed fetching content:", error.response?.status, error.response?.data || error.message);
         res.status(500).json({ error: "Failed to fetch content" });
     }
 });
 
-// Get posters for background
+app.get("/tv/:id/season/:season", async (req: Request, res: Response) => {
+    const { id, season } = req.params;
+    try{
+        const response = await axios.get(`${TMDB_BASE_URL}/tv/${id}/season/${season}`, { 
+            headers: { 
+                Authorization: `Bearer ${TMDB_BEARER_TOKEN}` 
+            } 
+        })
+        res.json(response.data)
+    }catch(error: any){
+        console.error("Failed fetching Seasons:", error.response?.status, error.response?.data || error.message);
+        res.status(500).json({ error: "Failed to fetch Seasons" });
+    }
+})
+
 app.get("/posters", async (_req: Request, res: Response) => {
     try {
-        const { data } = await axiosInstance.get("/movie/top_rated", {
-            params: { page: 1 },
+        const { data } = await axios.get(`${TMDB_BASE_URL}/movie/top_rated`, {
+            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
         });
 
-        const posters = data.results.map(
-            (movie: { poster_path: string }) => `${IMAGE_BASE}${movie.poster_path}`
-        );
-
+        const posters = data.results.map((movie: { poster_path: string }) => `${IMAGE_BASE}${movie.poster_path}`);
         res.json(posters);
     } catch (error: any) {
         console.error(error);
