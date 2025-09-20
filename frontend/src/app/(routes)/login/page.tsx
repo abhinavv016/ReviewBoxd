@@ -52,7 +52,6 @@ export default function LoginForm({ onClose }: LoginFormProps) {
 
     return (
         <motion.div 
-            // className="fixed w-[60rem] top-5 right-20 bg-[#415a77] p-6 rounded-lg shadow-2xl"
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60"
             key="modal"
             initial={{ opacity: 0 }}
