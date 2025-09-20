@@ -26,7 +26,7 @@ export default async function ContentPage({
     const country = details.country;
     const spoken_language = details.spoken_language;
     const genres = details.genres
-    const networks = result.data.details.networks[0].name;
+    const networks = result.data.details?.networks?.[0]?.name || null;
 
     const content = result.data.details;
 

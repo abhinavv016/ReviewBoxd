@@ -17,7 +17,7 @@ export default function WatchedSeries({ id, media_type }: WatchedSeriesProps) {
     const handleSeasonClick = () => setIsVisible(true);
     const handleCloseClick = () => setIsVisible(false);
     return (<>
-        <div className="absolute flex left-1/2 translate-x-80 flex-col items-center bg-slate-600 w-80 mt-15 rounded-md">
+        <div className="absolute flex left-1/2 translate-x-80 flex-col items-center bg-[#1b263b] w-80 mt-15 rounded-md">
             <div className="flex justify-center w-full">
                 <div className="flex flex-col items-center w-30 mt-5 text-slate-400 cursor-pointer">
                     <EyeIcon color="text-slate-400 hover:text-[#FF9010]" size="text-5xl" />

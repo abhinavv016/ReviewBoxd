@@ -15,7 +15,6 @@ export default function CreateAccount({ onClose }: AccountProps) {
     const [form, setForm] = useState({ username: "", email: "", password: "" });
     const [loading, setLoading] = useState(false);
 
-    // ✅ add this
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -53,7 +52,7 @@ export default function CreateAccount({ onClose }: AccountProps) {
             exit={{ opacity: 0 }}
             onClick={handleOverlayClick}
         >
-            <div className="w-[420px] h-[549px] shadow-2xl bg-[#435565] rounded-lg relative">
+            <div className="w-[420px] h-[549px] shadow-2xl bg-[#415a77] rounded-lg relative">
                 <div className="ml-10">
                     <div className=" flex items-center my-6 text-[#99A9BB] ">
                         JOIN REVIEWBOXD

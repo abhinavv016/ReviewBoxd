@@ -56,7 +56,7 @@ export default function SeasonsCarousal({ media_type, id }: SeasonsCarousalProps
 
     return (
         <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent className="ml-14">
+            <CarouselContent className={`ml-14 ${seasons.length === 1 ? "justify-center" : ""}`}>
                 {seasons.map((season) => (
                     <CarouselItem key={season.season_number} className="md:basis-1/2 lg:basis-1/2">
                         <AnimatePresence>

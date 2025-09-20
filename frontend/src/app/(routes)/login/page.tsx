@@ -19,6 +19,10 @@ export default function LoginForm({ onClose }: LoginFormProps) {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) onClose();
+    };
+
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         try {
@@ -48,13 +52,15 @@ export default function LoginForm({ onClose }: LoginFormProps) {
 
     return (
         <motion.div 
-            className="fixed w-[60rem] left-1/2 mt-[25px] transform -translate-x-1/3 -translate-y-1/2 bg-[#14181C] p-6 rounded-lg shadow-2xl z-50 "
+            // className="fixed w-[60rem] top-5 right-20 bg-[#415a77] p-6 rounded-lg shadow-2xl"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60"
             key="modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={handleOverlayClick}
             >
-            <div className="flex justify-center">
+            <div className="fixed w-[60rem] top-5 right-20 bg-[#415a77] p-6 rounded-lg shadow-2xl">
                 <form className="flex gap-3 space-y-4" onSubmit={handleSubmit}>
                     <div className="flex mt-7 cursor-pointer" onClick={onClose}>
                         <CrossIcons />

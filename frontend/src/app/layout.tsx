@@ -19,8 +19,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className="relative min-h-screen">
         <div
-          className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/reviewboxd.jpg')" }}
+          className="fixed inset-0 -z-10 bg-cover bg-top bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/reviewboxd.jpg')",
+            backgroundAttachment: "fixed",
+            backgroundPositionX: "center",
+            backgroundPositionY: "top",   
+          }}
         ></div>
         <div className="fixed inset-0 -z-10 bg-black/80"></div>
         <main className="relative z-10"><Providers>{children}</Providers></main>

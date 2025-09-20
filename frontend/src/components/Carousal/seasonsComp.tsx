@@ -25,7 +25,7 @@ export default function SeasonsComp({ onClose, media_type, id }: SeasonProps) {
             exit={{ opacity: 0 }}
         >
 
-            <div className="bg-[#14181C] p-6 rounded-md relative w-[1200px] h-[700px] ">
+            <div className="bg-[#415a77] p-6 rounded-md relative w-[1200px] h-[700px] ">
                 <button
                     className="absolute top-3 right-3 text-white"
                     onClick={onClose}
