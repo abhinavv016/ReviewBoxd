@@ -52,7 +52,7 @@ export default function CreateAccount({ onClose }: AccountProps) {
             exit={{ opacity: 0 }}
             onClick={handleOverlayClick}
         >
-            <div className="w-[420px] h-[549px] shadow-2xl bg-[#415a77] rounded-lg relative">
+            <div className="w-[420px] h-[549px] shadow-2xl bg-[#3B3D54] rounded-lg relative">
                 <div className="ml-10">
                     <div className=" flex items-center my-6 text-[#99A9BB] ">
                         JOIN REVIEWBOXD

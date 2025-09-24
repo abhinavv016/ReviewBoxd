@@ -5,6 +5,7 @@ export default async function Cast({ params }: { params: { media_type: string; i
     const cast = result.data.crew.cast
 
     const topCast = cast
+        .slice(0,50)
         .map((actor: { name: any; }) => actor.name)
 
     return topCast

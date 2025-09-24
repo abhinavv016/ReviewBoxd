@@ -23,9 +23,9 @@ function Tabs({
         const visibleItems = showAll ? items : items.slice(0, LIMIT);
 
         return (
-            <div className="flex flex-wrap gap-2 w-140">
+            <div className="flex flex-wrap gap-1 w-140">
                 {visibleItems.map((name, index) => (
-                    <div key={index} className="bg-slate-700 px-3 py-1 rounded-md">
+                    <div key={index} className="bg-[#0E344E] text-sm px-2 py-1 rounded-sm">
                         {name}
                     </div>
                 ))}
@@ -33,7 +33,7 @@ function Tabs({
                 {items.length > LIMIT && (
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="bg-slate-700 px-3 py-1 rounded-md"
+                        className="bg-[#0E344E] px-3 py-1 text-sm rounded-md"
                     >
                         {showAll ? "Show Less" : "Show More"}
                     </button>
@@ -50,7 +50,7 @@ function Tabs({
                         key={tab}
                         onClick={() => {
                             setActiveTab(tab);
-                            setShowAll(false); // reset when switching tab
+                            setShowAll(false);
                         }}
                         className={`pb-2 capitalize ${activeTab === tab
                                 ? "border-b-2 border-[#00E054] text-[#00E054]"

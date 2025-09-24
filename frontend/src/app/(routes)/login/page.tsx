@@ -59,7 +59,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
             exit={{ opacity: 0 }}
             onClick={handleOverlayClick}
             >
-            <div className="fixed w-[60rem] top-5 right-20 bg-[#415a77] p-6 rounded-lg shadow-2xl">
+            <div className="fixed w-[60rem] top-5 right-20 bg-[#3B3D54] p-6 rounded-lg shadow-2xl">
                 <form className="flex gap-3 space-y-4" onSubmit={handleSubmit}>
                     <div className="flex mt-7 cursor-pointer" onClick={onClose}>
                         <CrossIcons />

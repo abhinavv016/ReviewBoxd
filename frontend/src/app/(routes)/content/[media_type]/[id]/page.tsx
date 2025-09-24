@@ -25,102 +25,114 @@ export default async function ContentPage({
     const studio = details.studio;
     const country = details.country;
     const spoken_language = details.spoken_language;
-    const genres = details.genres
+    const genres = details.genres;
     const networks = result.data.details?.networks?.[0]?.name || null;
 
     const content = result.data.details;
 
-
     return (
-        <>
-            <div className="text-white relative">
+        <div className="relative w-full min-h-screen bg-black text-white overflow-x-hidden">
+            <div className="absolute inset-0 z-0">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `url(https://image.tmdb.org/t/p/original${content.backdrop_path})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        filter: "blur(40px) brightness(0.6)",
+                    }}
+                />
 
-                {/* content background_poster */}
-                <div>
+                <div className="absolute inset-0 flex justify-center items-start pt-20">
                     <img
                         src={`https://image.tmdb.org/t/p/original${content.backdrop_path}`}
-                        className="absolute h-195 w-full z-0"
-                    />
-                    <div
-                        className="absolute h-195 w-full z-10 backdrop-opacity-80"
-                        style={{
-                            background:
-                                'linear-gradient(to top, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0) 90%), ' +
-                                'linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%), ' +
-                                'linear-gradient(to left, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%)',
-                        }}
+                        className="w-[90%] max-h-[48rem] object-cover rounded-xl shadow-lg"
                     />
                 </div>
 
-                {/* Navbar */}
-                <div className="relative z-20">
-                    <Navbar />
-                </div>
+                <div className="absolute inset-0 bg-black/50" />
 
-                {/* Content poster */}
-                <div className="flex z-30 mt-[35rem]">
-                    <div className="w-70 h-100 ml-30 border-2 border-slate-500 rounded-md z-40 flex-shrink-0">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background:
+                            "linear-gradient(to right, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 20%), " +
+                            "linear-gradient(to left, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 20%), " +
+                            "linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 70%)",
+                    }}
+                />
+
+            </div>
+
+            <div className="relative z-10 px-10">
+                <Navbar />
+                <div className="flex mt-40 gap-10 max-w-6xl mx-auto">
+                    <div className="w-70 h-100 border-2 border-slate-500 rounded-md flex-shrink-0">
                         <img
                             src={`https://image.tmdb.org/t/p/original${content.poster_path}`}
                             className="w-full h-full object-cover rounded-md"
                         />
                     </div>
 
-                    <div className="flex items-center ml-25 mt-40 text-white">
-                        <div className="flex flex-col items-start ">
+                    <div className="flex flex-col w-[550px]">
+                        <span className="font-extrabold text-4xl">
+                            {content.name || content.title}
+                        </span>
 
-                            <div className="flex items-center gap-4">
-                                {/* title of the content */}
-                                <span className="font-extrabold text-4xl">
-                                    {content.name || content.title}
+                        <div className="flex items-center gap-4 text-xl mt-2">
+                            <span>
+                                {(content.release_date || content.first_air_date)?.slice(0, 4)}
+                            </span>
+
+                            {directors && (
+                                <span>
+                                    <strong>Directed by</strong> {directors}
                                 </span>
+                            )}
 
-                                {/* first air or release data */}
-                                <span className="text-2xl mt-2">
-                                    {(content.release_date || content.first_air_date)?.slice(0, 4)}
+                            {networks && (
+                                <span>
+                                    <strong>Produced by</strong> {networks}
                                 </span>
+                            )}
 
-                                {/* directors name */}
-                                {directors && (
-                                    <span className="text-2xl mt-2">
-                                        <strong>Directed by</strong> {directors}
-                                    </span>
-                                )}
-                                {networks && (
-                                    <span className="text-2xl mt-2">
-                                        <strong>Produced by</strong> {networks}
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* tagline of movie */}
-                            <div className="mt-8 w-140 text-center">
-                                <b><i>{content.tagline}</i></b>
-                            </div>
-
-                            {/* overview of movie */}
-                            <div className="mt-2 w-140 ">
-                                <p>{content.overview}</p>
-                            </div>
-
-                            <div className="flex gap-5 ">
-                                <Tabs
-                                    cast={cast ?? []}
-                                    crew={topCrew ?? []}
-                                    details={{
-                                        studio: studio ?? [],
-                                        country: country ?? [],
-                                        spoken_language: spoken_language ?? [],
-                                        genres: genres ?? [],
-                                    }}
+                            {directors ? (
+                                <WatchedMovie />
+                            ) : (
+                                <WatchedSeries
+                                    id={params.id}
+                                    media_type={params.media_type}
                                 />
-                                {directors && <WatchedMovie />}
-                                {!directors && <WatchedSeries id={params.id} media_type={params.media_type} />}
+                            )}
+                        </div>
+
+                        {content.tagline && (
+                            <div className="mt-4 text-lg italic">
+                                <center>{content.tagline}</center>
                             </div>
+                        )}
+
+                        <p className="mt-4">{content.overview}</p>
+
+                        <div className="mt-6">
+                            <Tabs
+                                cast={cast ?? []}
+                                crew={topCrew ?? []}
+                                details={{
+                                    studio: studio ?? [],
+                                    country: country ?? [],
+                                    spoken_language: spoken_language ?? [],
+                                    genres: genres ?? [],
+                                }}
+                            />
+
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+            <div className=" relative text-white">
+                jkadsfhjkdsahkjfjk
+            </div>
+        </div>
     );
 }

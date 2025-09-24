@@ -10,6 +10,7 @@ export default async function Crew({ params }: { params: { media_type: string; i
         .join(", ");
 
     const topCrew = crew
+        .slice(0,50)
         .sort((a: any, b: any) => b.popularity - a.popularity)
         .map((actor: { name: any; }) => actor.name)
         .filter((name: string, index: number, self: string[]) => self.indexOf(name) === index);

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/footer";
-import { SessionProvider } from "next-auth/react";
 import { Providers } from "./providers";
+import BackgroundWrapper from "@/components/background/backgroundWrapper"; // new client wrapper
 
 export const metadata: Metadata = {
   title: "Reviewboxd",
@@ -15,21 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className="relative min-h-screen">
-        <div
-          className="fixed inset-0 -z-10 bg-cover bg-top bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/reviewboxd.jpg')",
-            backgroundAttachment: "fixed",
-            backgroundPositionX: "center",
-            backgroundPositionY: "top",   
-          }}
-        ></div>
-        <div className="fixed inset-0 -z-10 bg-black/80"></div>
-        <main className="relative z-10"><Providers>{children}</Providers></main>
-        <Footer/>
+      <body className="relative min-h-screen bg-black" suppressHydrationWarning>
+        <BackgroundWrapper>
+          <Providers>{children}</Providers>
+        </BackgroundWrapper>
+        <Footer />
       </body>
     </html>
   );
