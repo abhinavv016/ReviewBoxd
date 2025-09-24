@@ -15,7 +15,7 @@ router.get("/movies/popular", async (req: Request, res: Response) => {
                 title: movie.title,
                 release_date: movie.release_date,
                 poster_path: movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
                     : null,
             })) || [];
         res.json(results.slice(0, 5));

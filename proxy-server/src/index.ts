@@ -10,7 +10,7 @@ app.use(cors());
 
 const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+const IMAGE_BASE = "https://image.tmdb.org/t/p/original";
 
 if (!TMDB_BEARER_TOKEN) {
     throw new Error("❌ TMDB_BEARER_TOKEN is missing in .env");
@@ -92,13 +92,21 @@ app.get("/tv/:id/season/:season", async (req: Request, res: Response) => {
     }
 })
 
-app.get("/posters", async (_req: Request, res: Response) => {
-    try {
-        const { data } = await axios.get(`${TMDB_BASE_URL}/movie/top_rated`, {
-            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
-        });
+app.get("/posters", async (req: Request, res: Response) => {
 
-        const posters = data.results.map((movie: { poster_path: string }) => `${IMAGE_BASE}${movie.poster_path}`);
+    try {
+        const pageRequests = Array.from({length: 10}, (_, i) => 
+            axios.get(`${TMDB_BASE_URL}/movie/top_rated?page=${i + 1}`, {
+            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
+        })
+    )
+        const response = await Promise.all(pageRequests)
+
+        const posters = response.flatMap(response => 
+            response.data.results.map(
+                (movie: { poster_path: string }) => `${IMAGE_BASE}${movie.poster_path}`
+            )
+        )
         res.json(posters);
     } catch (error: any) {
         console.error(error);
