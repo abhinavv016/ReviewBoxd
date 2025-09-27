@@ -13,10 +13,8 @@ app.use(
   })
 );
 
-// 🎬 Movies routes
 app.use("/", moviesRouter);
 
-// Start server
 const PORT = process.env.PORT_BACKEND || 4000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);

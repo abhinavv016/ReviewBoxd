@@ -13,7 +13,7 @@ interface MediaProps {
 }
 
 export default async function Home() {
-  
+    
     const moviesRes = await axios.get<MediaProps[]>("http://localhost:4000/movies/popular");
     const tvRes = await axios.get<MediaProps[]>("http://localhost:4000/tv/popular");
 
@@ -23,7 +23,6 @@ export default async function Home() {
     return (
         <div>
             <Navbar />
-
             <HomeClient movies={movies} tv={tv} />
             <Collect />
         </div>

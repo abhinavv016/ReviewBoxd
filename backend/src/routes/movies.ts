@@ -137,12 +137,13 @@ router.get("/content/:media_type/:id/keywords", async (req, res) =>{
     }
 })
 
-router.get("/posters", async (req,res) => {
-    try{
-        const response = await axios.get(`${PROXY_BASE_URL}/posters`);
-        res.json(response.data);
-    }catch(err){
-        res.status(500).json({error: "Failed to fetch the posters"})
-    }
-})
+router.get("/posters", async (req, res) => {
+  try {
+    const { data } = await axios.get(`${PROXY_BASE_URL}/posters`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch posters from proxy" });
+  }
+});
 export default router;

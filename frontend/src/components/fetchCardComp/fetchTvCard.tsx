@@ -15,7 +15,7 @@ export default function FetchTvCard({ tv }: { tv: TvProps }) {
         <Link href={`/content/tv/${tv.id}`}>
             <motion.div
                 whileHover={{
-                scale:1.1,
+                scale:1.05,
                 transition: {duration : 0.2}
                 }}
                 className="w-[170px] h-[250px] rounded-md border-2 hover:border-[#04AB1D] overflow-hidden bg-slate-700 cursor-pointer">

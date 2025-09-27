@@ -20,15 +20,17 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
     const [isAccount, setIsAccount] = useState(false);
 
     return (
-        <div className="flex flex-col mt-15">
+        <div className="flex flex-col mt-10 px-4 md:px-20 lg:px-40">
 
-            <h2 className="text-[36px] text-white font-[700] leading-[48px] text-center">
+            {/* Heading */}
+            <h2 className="text-[20px] md:text-[28px] lg:text-[36px] text-white font-bold leading-[28px] md:leading-[36px] lg:leading-[48px] text-center">
                 Track content you've watched. <br />
                 Save those you want to see. <br />
                 Tell your friends what's good.
             </h2>
 
-            <div className="flex justify-center mt-10">
+            {/* Get Started Button */}
+            <div className="flex justify-center mt-6 md:mt-10">
                 <Button
                     variant={"primary"}
                     text={"Get Started - it's free !!"}
@@ -36,33 +38,35 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
                 />
             </div>
 
-            <div className="mt-10 text-[20px] text-[#8898A9] flex justify-center gap-2 ">
+            {/* Tagline */}
+            <div className="mt-4 md:mt-6 text-[16px] md:text-[20px] text-[#8898A9] flex justify-center items-center gap-2">
                 The Social Network for Cinephiles
                 <MovieIcon />
             </div>
 
-
-            <div className="ml-70 mt-15 text-[#8898A9]">POPULAR MOVIES THIS WEEK</div>
-            <div className="flex justify-center mt-2">
-                <div className="h-px w-[65rem] bg-[#99A9BB]"></div>
+            {/* Popular Movies */}
+            <div className="mt-10 text-[#8898A9] text-md font-medium">
+                POPULAR MOVIES THIS WEEK
             </div>
-            <div 
-            className="flex items-center justify-center gap-10 mt-5 mx-20">
-                {movies.slice(0, 5).map((movie: any) => (
+            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
+            <div className="flex flex-row overflow-x-auto gap-4 md:gap-7 py-4">
+                {movies.map((movie) => (
                     <FetchMovieCard key={movie.id} movie={movie} />
                 ))}
             </div>
 
-
-            <div className="ml-70 mt-15 text-[#8898A9]">POPULAR TV THIS WEEK</div>
-            <div className="flex justify-center mt-2">
-                <div className="h-px w-[65rem] bg-[#99A9BB]"></div>
+            {/* Popular TV */}
+            <div className="mt-10 text-[#8898A9] text-md font-medium">
+                POPULAR TV SHOWS THIS WEEK
             </div>
-            <div className="flex items-center justify-center gap-10 mt-5 mx-20">
-                {tv.slice(0, 5).map((tv: any) => (
+            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
+            <div className="flex flex-row overflow-x-auto gap-4 md:gap-7 py-4">
+                {tv.map((tv) => (
                     <FetchTvCard key={tv.id} tv={tv} />
                 ))}
             </div>
+
+            {/* Create Account Modal */}
             <motion.div>
                 {isAccount && <CreateAccount onClose={() => setIsAccount(false)} />}
             </motion.div>

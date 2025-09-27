@@ -11,13 +11,15 @@ import WatchedSeries from "@/components/watchedComponent/watchSeries";
 export default async function ContentPage({
     params,
 }: {
-    params: { media_type: string; id: string };
+    params: Promise<{ media_type: string; id: string }>;
 }) {
-    const result = await fetchComp(params);
+    const { media_type, id } = await params;
 
-    const cast = await Cast({ params });
-    const crewDetails = await Crew({ params });
-    const details = await Details({ params });
+    const result = await fetchComp({ media_type, id });
+
+    const cast = await Cast({ params: { media_type, id } });
+    const crewDetails = await Crew({ params: { media_type, id } });
+    const details = await Details({ params: { media_type, id } });
 
     const directors = crewDetails.directors;
     const topCrew = crewDetails.topCrew;
@@ -97,11 +99,20 @@ export default async function ContentPage({
                             )}
 
                             {directors ? (
-                                <WatchedMovie />
+                                <WatchedMovie 
+                                media={{
+                                    id: content.id,
+                                    title: content.title || content.name,
+                                    poster_path: content.poster_path,
+                                    media_type: media_type,
+                                }} />
                             ) : (
-                                <WatchedSeries
-                                    id={params.id}
-                                    media_type={params.media_type}
+                                <WatchedSeries media={{
+                                    id: id,
+                                    title: content.title || content.name,
+                                    poster_path: content.poster_path,
+                                    media_type: media_type
+                                }}                                    
                                 />
                             )}
                         </div>

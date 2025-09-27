@@ -9,21 +9,21 @@ import UserDetails from "./userComp/userDetails";
 export default function Navbar() {
     const {data: session} = useSession();
     return (
-        <div className="flex text-white items-center relative">
-            <a className="relative font-bold font-sans text-4xl p-4 ms-80" href="/">
+        <div className="relative flex justify-center text-white p-4">
+            <a className="font-bold font-sans text-4xl mx-auto md:mx-0" href="/">
                 Reviewboxd
             </a>
 
-            <div className="font-semibold flex items-center gap-10">
-                <div className="ml-10">
+            <div className="hidden md:flex font-semibold items-center gap-10 ml-10">
+                <div>
                     {session?.user ? <UserDetails /> : <SignInTrigger />}
                 </div>
-                <CreateAccountTrigger />
+                {session?.user ? <UserDetails/> :<CreateAccountTrigger />}
                 <a className="hover:text-[#D7E0E8]" href="/films">FILMS</a>
                 <a className="hover:text-[#D7E0E8]" href="/journal">SHOWS</a>
                 <a className="hover:text-[#D7E0E8]" href="/lists">LISTS</a>
-            </div>
                 <SearchPage />
+            </div>
         </div>
     );
 }

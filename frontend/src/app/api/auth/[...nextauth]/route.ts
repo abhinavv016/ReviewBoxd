@@ -1,11 +1,12 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt"
 
 
-export const handler = NextAuth({
+
+export const authOptions: AuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -17,7 +18,6 @@ export const handler = NextAuth({
             credentials: {
                 username: { label: "Username", type: "text" },
                 password: { label: "Password", type: "password" },
-                rememberMe: { label: "Remember Me", type: "checkbox" },
             },
             async authorize(credentials) {
                 if (!credentials?.username || !credentials.password) {
@@ -31,7 +31,7 @@ export const handler = NextAuth({
                     throw new Error("No user found with this username");
                 }
 
-                const isValid = bcrypt.compare(credentials.password, user.password!);
+                const isValid = await bcrypt.compare(credentials.password, user.password!);
                 if (!isValid) {
                     throw new Error("Invalid password");
                 }
@@ -40,7 +40,6 @@ export const handler = NextAuth({
                     id: user.id,
                     name: user.username,
                     email: user.email,
-                    rememberMe: credentials.rememberMe === "on",
                 }
             },
         }),
@@ -72,16 +71,24 @@ export const handler = NextAuth({
         },
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id
+                const dbUser = await prisma.user.findUnique({
+                    where: {email : user.email!}
+                })
+                token.id = dbUser?.id ?? user.id;
+                token.username = dbUser?.username ?? dbUser?.id.toString();;
             }
-            delete token.exp;
             return token;
         },
         async session({ session, token }) {
-            if (session.user) session.user.id = token.id as string;
+            if (session.user){
+                session.user.id = token.id as string;
+                session.user.username = token.username as string;
+            } 
             return session;
         },
     }
-})
+}
+
+const handler  = NextAuth(authOptions)
 
 export { handler as GET, handler as POST };

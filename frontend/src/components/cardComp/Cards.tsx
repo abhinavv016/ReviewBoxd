@@ -12,7 +12,7 @@ export default function Card({ text, hoverColor, href, Icon}: CardProps) {
     const DefaultIcon = EyeIcon;
     return (
         <Link href={href}>
-            <div className="group flex items-center text-md w-[340px] h-[102px]  bg-[#435565] rounded-sm hover:[background-color:var(--hover-color)]"
+            <div className="group flex items-center text-md w-[320px] h-[100px]  bg-[#435565] rounded-sm hover:[background-color:var(--hover-color)]"
             style={{ ["--hover-color" as any]: hoverColor }}
             >
                 <div className="ml-3 pr-2">

@@ -71,7 +71,7 @@ export default function SeasonsCarousal({ media_type, id }: SeasonsCarousalProps
                             >
 
                                 <motion.img
-                                    src={season.poster_path ? `https://image.tmdb.org/t/p/w500${season.poster_path}` : `https://image.tmdb.org/t/p/original${content.poster_path}`}
+                                    src={season.poster_path ? `https://image.tmdb.org/t/p/original${season.poster_path}` : `https://image.tmdb.org/t/p/original${content.poster_path}`}
                                     alt={`Season ${season.season_number}`}
                                     className="w-full h-full object-cover"
                                     initial={{ opacity: 0, scale: 0.95 }}

@@ -9,7 +9,7 @@ export default function Background() {
     useEffect(() => {
         async function fetchPoster() {
             try {
-                const { data } = await axios.get<string[]>(`http://localhost:3001/posters`);
+                const { data } = await axios.get<string[]>(`http://localhost:4000/posters`);
                 setPosters(data);
             } catch (err) {
                 console.error("Failed to fetch posters", err);
@@ -36,7 +36,7 @@ export default function Background() {
 
     return (
         <>
-            <div className="fixed inset-0 -z-10 grid grid-cols-20 auto-rows-[150px]">
+            <div className="fixed inset-0 -z-10 grid grid-cols-14 auto-rows-[150px]">
                 {posters.slice(0, visibleCount).map((poster, i) => (
                     <img
                         key={i}

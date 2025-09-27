@@ -7,12 +7,18 @@ import SeasonsComp from "../Carousal/seasonsComp";
 import { AnimatePresence } from "framer-motion";
 import { useUiState } from "@/app/store/useStore";
 
-interface WatchedSeriesProps {
+interface Media {
     id: string;
     media_type: string;
+    title: string;
+    poster_path: string
 }
 
-export default function WatchedSeries({ id, media_type }: WatchedSeriesProps) {
+interface WatchSeriesProps{
+    media: Media
+}
+
+export default function WatchedSeries({ media }: WatchSeriesProps) {
     const { isVisible, open, close } = useUiState()
 
     return (<>
@@ -29,7 +35,7 @@ export default function WatchedSeries({ id, media_type }: WatchedSeriesProps) {
                 </div>
 
                 <div className="flex flex-col items-center w-30 ml-5 mt-2 text-slate-400 cursor-pointer">
-                    <WatchLaterIcon color="text-slate-400 hover:text-[#40BCF4]" size="text-4xl" />
+                    <WatchLaterIcon media={media} color="text-slate-400 hover:text-[#40BCF4]" size="text-4xl" />
                     <span className="text-sm">Watchlist</span>
                 </div>
             </div>
@@ -72,7 +78,7 @@ export default function WatchedSeries({ id, media_type }: WatchedSeriesProps) {
         </div>
 
         <AnimatePresence>
-            {isVisible && <SeasonsComp onClose={close} media_type={media_type} id={id} />}
+            {isVisible && <SeasonsComp onClose={close} media_type={media.media_type} id={media.id} />}
         </AnimatePresence>
     </>
     )
