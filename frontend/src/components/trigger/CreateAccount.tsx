@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import CreateAccount from "@/app/(routes)/createaccount/page";
+import CreateAccount from "@/components/createaccount/page";
 import { AnimatePresence } from "framer-motion";
 
 export default function CreateAccountTrigger() {
@@ -17,7 +17,7 @@ export default function CreateAccountTrigger() {
                 CREATE ACCOUNT
             </span>
             <AnimatePresence>
-            {isAccountVisible && <CreateAccount onClose={handleCloseClick} />}
+                {isAccountVisible && <CreateAccount onClose={handleCloseClick} />}
             </AnimatePresence>
         </>
     );

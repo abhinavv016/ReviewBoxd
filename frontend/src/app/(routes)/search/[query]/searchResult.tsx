@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/homePage/Navbar";
 import Link from "next/link";
 import { Content } from "@/lib/fetchContent";
 

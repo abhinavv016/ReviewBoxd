@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import LoginForm from "@/app/(routes)/login/page";
+import LoginForm from "@/components/login/page";
 import { AnimatePresence } from "framer-motion";
 
 export default function SignInTrigger() {

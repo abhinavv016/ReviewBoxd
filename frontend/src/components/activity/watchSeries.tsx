@@ -22,7 +22,7 @@ export default function WatchedSeries({ media }: WatchSeriesProps) {
     const { isVisible, open, close } = useUiState()
 
     return (<>
-        <div className="absolute flex left-210 translate-x-80 flex-col items-center bg-[#0E344E] w-60 mt-85 rounded-sm">
+        <div className="absolute flex left-190 -top-30 translate-x-80 flex-col items-center bg-[#0E344E] w-60 mt-85 rounded-sm">
             <div className="flex justify-center w-full px-5">
                 <div className="flex flex-col items-center w-30 mt-2 text-slate-400 cursor-pointer">
                     <EyeIcon color="text-slate-400 hover:text-[#FF9010]" size="text-4xl" />

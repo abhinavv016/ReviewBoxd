@@ -1,6 +1,6 @@
-import Collect from "@/components/cardComp/cardCollect";
-import HomeClient from "@/components/fetchCardComp/HomeClient";
-import Navbar from "@/components/navbar";
+import Collect from "@/components/detailsCard/cardCollect";
+import HomeClient from "@/components/homePage/HomeClient";
+import Navbar from "@/components/homePage/Navbar";
 import axios from "axios";
 
 interface MediaProps {
@@ -13,12 +13,12 @@ interface MediaProps {
 }
 
 export default async function Home() {
-    
+
     const moviesRes = await axios.get<MediaProps[]>("http://localhost:4000/movies/popular");
     const tvRes = await axios.get<MediaProps[]>("http://localhost:4000/tv/popular");
 
-    const movies = moviesRes.data.slice(0, 5);
-    const tv = tvRes.data.slice(0, 5);
+    const movies = moviesRes.data.slice(0, 6);
+    const tv = tvRes.data.slice(0, 6);
 
     return (
         <div>

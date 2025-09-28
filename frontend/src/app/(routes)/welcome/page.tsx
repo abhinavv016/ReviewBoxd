@@ -1,4 +1,5 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/homePage/Navbar";
+
 
 export default function Welcome() {
     return <div>

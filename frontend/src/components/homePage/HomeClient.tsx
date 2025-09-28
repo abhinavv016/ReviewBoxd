@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Button from "@/components/button";
 import MovieIcon from "@/icons/movieIcon";
-import CreateAccount from "@/app/(routes)/createaccount/page";
-import FetchMovieCard from "@/components/fetchCardComp/fetchMovieCard";
-import FetchTvCard from "@/components/fetchCardComp/fetchTvCard";
+import CreateAccount from "@/components/createaccount/page";
+import FetchMovieCard from "@/components/homePage/fetchMovieCard";
+import FetchTvCard from "@/components/homePage/fetchTvCard";
 import { motion } from "framer-motion";
 
 interface MediaProps {
@@ -49,7 +49,7 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
                 POPULAR MOVIES THIS WEEK
             </div>
             <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
-            <div className="flex flex-row overflow-x-auto gap-4 md:gap-7 py-4">
+            <div className="flex flex-row overflow-x-auto gap-4 md:gap-3 py-4">
                 {movies.map((movie) => (
                     <FetchMovieCard key={movie.id} movie={movie} />
                 ))}
@@ -60,7 +60,7 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
                 POPULAR TV SHOWS THIS WEEK
             </div>
             <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
-            <div className="flex flex-row overflow-x-auto gap-4 md:gap-7 py-4">
+            <div className="flex flex-row overflow-x-auto gap-4 md:gap-3 py-4">
                 {tv.map((tv) => (
                     <FetchTvCard key={tv.id} tv={tv} />
                 ))}

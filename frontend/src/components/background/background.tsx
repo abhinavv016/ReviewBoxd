@@ -36,7 +36,7 @@ export default function Background() {
 
     return (
         <>
-            <div className="fixed inset-0 -z-10 grid grid-cols-14 auto-rows-[150px]">
+            <div className="fixed inset-0 -z-10 grid grid-cols-5 md:grid-cols-14 auto-rows-[150px]">
                 {posters.slice(0, visibleCount).map((poster, i) => (
                     <img
                         key={i}

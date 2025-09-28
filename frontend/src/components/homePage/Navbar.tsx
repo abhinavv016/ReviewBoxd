@@ -4,7 +4,7 @@ import CreateAccountTrigger from "@/components/trigger/CreateAccount"; // option
 import SignInTrigger from "@/components/trigger/SigninTrigger";
 import SearchPage from "@/components/search/searchBar";
 import { useSession } from "next-auth/react";
-import UserDetails from "./userComp/userDetails";
+import UserDetails from "../profileDropdown/userDetails";
 
 export default function Navbar() {
     const {data: session} = useSession();

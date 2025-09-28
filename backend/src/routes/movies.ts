@@ -18,7 +18,7 @@ router.get("/movies/popular", async (req: Request, res: Response) => {
                     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
                     : null,
             })) || [];
-        res.json(results.slice(0, 5));
+        res.json(results);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -36,7 +36,7 @@ router.get("/tv/popular", async (req: Request, res: Response) => {
                 name: tv.name,
                 release_date: tv.release_date,
                 poster_path: tv.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${tv.poster_path}`
+                    ? `https://image.tmdb.org/t/p/original${tv.poster_path}`
                     : null,
             })) || [];
         res.json(results);

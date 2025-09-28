@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Footer from "@/components/footer";
+import Footer from "@/components/homePage/footer";
 import { Providers } from "./providers";
 import BackgroundWrapper from "@/components/background/backgroundWrapper"; // new client wrapper
 
