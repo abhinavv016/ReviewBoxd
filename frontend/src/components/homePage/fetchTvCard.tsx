@@ -18,7 +18,7 @@ export default function FetchTvCard({ tv }: { tv: TvProps }) {
                 scale:1.05,
                 transition: {duration : 0.2}
                 }}
-                className="w-[170px] h-[250px] rounded-md border-2 hover:border-[#04AB1D] overflow-hidden bg-slate-700 cursor-pointer">
+                className="w-[150px] h-[230px] rounded-md border-2 hover:border-[#04AB1D] overflow-hidden bg-slate-700 cursor-pointer">
                 {tv.poster_path && (
                     <img
                         src={tv.poster_path}

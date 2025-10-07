@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "@/components/button";
 import MovieIcon from "@/icons/movieIcon";
 import CreateAccount from "@/components/createaccount/page";
 import FetchMovieCard from "@/components/homePage/fetchMovieCard";
@@ -31,11 +30,13 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
 
             {/* Get Started Button */}
             <div className="flex justify-center mt-6 md:mt-10">
-                <Button
-                    variant={"primary"}
-                    text={"Get Started - it's free !!"}
+                <button
+                    type="button"
                     onClick={() => setIsAccount(true)}
-                />
+                    className="bg-[#04AB1D] hover:bg-[#008814] text-white font-bold px-3 py-1.5 rounded-sm "
+                >
+                    Get Started - it's free !!
+                </button>
             </div>
 
             {/* Tagline */}
@@ -45,25 +46,29 @@ export default function HomeClient({ movies, tv }: { movies: MediaProps[], tv: M
             </div>
 
             {/* Popular Movies */}
-            <div className="mt-10 text-[#8898A9] text-md font-medium">
+            <div className="mt-10 text-[#8898A9] text-base font-medium">
                 POPULAR MOVIES THIS WEEK
             </div>
-            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
-            <div className="flex flex-row overflow-x-auto gap-4 md:gap-3 py-4">
-                {movies.map((movie) => (
-                    <FetchMovieCard key={movie.id} movie={movie} />
-                ))}
+            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1 mx-auto"></div>
+            <div className="flex justify-center">
+                <div className="flex flex-row gap-4 md:gap-5 py-4 max-w-6xl overflow-x-auto md:overflow-visible px-4 md:px-0">
+                    {movies.map((movie) => (
+                        <FetchMovieCard key={movie.id} movie={movie} />
+                    ))}
+                </div>
             </div>
 
             {/* Popular TV */}
-            <div className="mt-10 text-[#8898A9] text-md font-medium">
+            <div className="mt-10 text-[#8898A9] text-base font-medium">
                 POPULAR TV SHOWS THIS WEEK
             </div>
-            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1"></div>
-            <div className="flex flex-row overflow-x-auto gap-4 md:gap-3 py-4">
-                {tv.map((tv) => (
-                    <FetchTvCard key={tv.id} tv={tv} />
-                ))}
+            <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1 mx-auto"></div>
+            <div className="flex justify-center">
+                <div className="flex flex-row gap-4 md:gap-5 py-4 max-w-6xl overflow-x-auto md:overflow-visible px-4 md:px-0">
+                    {tv.map((tvShow) => (
+                        <FetchTvCard key={tvShow.id} tv={tvShow} />
+                    ))}
+                </div>
             </div>
 
             {/* Create Account Modal */}

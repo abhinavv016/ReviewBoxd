@@ -18,7 +18,7 @@ export default function FetchMovieCard({ movie }: { movie: MovieProps }) {
                 scale:1.05,
                 transition: {duration : 0.2}
                 }}
-                className="w-[170px] h-[250px] rounded-md border-2 hover:border-[#04AB1D] overflow-hidden bg-slate-700 cursor-pointer">
+                className="w-[150px] h-[230px] rounded-md border-2 hover:border-[#04AB1D] overflow-hidden bg-slate-700 cursor-pointer">
                 {movie.poster_path && (
                     <img
                         src={movie.poster_path}

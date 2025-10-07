@@ -2,7 +2,7 @@
 import { RememberMeCheckbox } from "@/components/ui/checkbox";
 import CrossIcons from "@/icons/crossIcon";
 import { motion } from "framer-motion";
-import { signIn } from "next-auth/react"; // ✅ import NextAuth signIn
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
@@ -13,7 +13,6 @@ interface LoginFormProps {
 export default function LoginForm({ onClose }: LoginFormProps) {
     const [form, setForm] = useState({ username: "", password: "" });
     const [loading, setLoading] = useState(false);
-    const [rememberMe, setRememberMe] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +30,6 @@ export default function LoginForm({ onClose }: LoginFormProps) {
             const res = await signIn("credentials", {
                 username: form.username,
                 password: form.password,
-                rememberMe: rememberMe ? "on" : "off",
                 redirect: true,
                 callbackUrl: "/"
             });
@@ -59,7 +57,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
             exit={{ opacity: 0 }}
             onClick={handleOverlayClick}
             >
-            <div className="fixed w-[60rem] top-5 right-20 bg-[#3B3D54] p-6 rounded-lg shadow-2xl">
+            <div className="fixed w-[45rem] top-5 right-55 bg-[#3B3D54] p-6 rounded-lg shadow-2xl">
                 <form className="flex gap-3 space-y-4" onSubmit={handleSubmit}>
                     <div className="flex mt-7 cursor-pointer" onClick={onClose}>
                         <CrossIcons />
@@ -97,17 +95,10 @@ export default function LoginForm({ onClose }: LoginFormProps) {
                         Forgotten?
                     </div>
 
-                    <div className="flex items-center ml-2">
-                        <RememberMeCheckbox 
-                        checked={rememberMe}
-                        onCheckedChange={(state: any) => setRememberMe(Boolean(state))}
-                        />
-                    </div>
-
-                    <div className="flex items-center ml-8">
+                    <div className="flex flex-col gap-2 items-center ml-8">
                         <button
                             type="submit"
-                            className="cursor-pointer w-25 bg-[#04AB1D] hover:bg-[#008814] px-3 py-1.5 text-white font-extrabold rounded-sm"
+                            className="cursor-pointer w-25 bg-[#04AB1D] hover:bg-[#008814] px-3 py-1.5 text-white font-bold rounded-sm"
                             disabled={loading}>
                             {loading ? "SIGN IN" : "SIGN IN"}
                         </button>

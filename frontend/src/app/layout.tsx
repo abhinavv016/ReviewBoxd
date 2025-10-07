@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/homePage/footer";
 import { Providers } from "./providers";
-import BackgroundWrapper from "@/components/background/backgroundWrapper"; // new client wrapper
+import BackgroundWrapper from "@/components/background/backgroundWrapper";
+import Navbar from "@/components/homePage/Navbar";
 
 export const metadata: Metadata = {
   title: "Reviewboxd",
@@ -18,7 +19,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="relative min-h-screen bg-black" suppressHydrationWarning>
         <BackgroundWrapper>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Navbar/>
+            {children}
+          </Providers>
         </BackgroundWrapper>
         <Footer />
       </body>

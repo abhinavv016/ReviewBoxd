@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Navbar from "@/components/homePage/Navbar";
 import Link from "next/link";
 import { Content } from "@/lib/fetchContent";
 
@@ -17,17 +16,12 @@ export default function SearchResult({ decodedQuery, contents }: SearchResultPro
 
     if (sortedContent.length === 0) {
         return (
-            <div>
-                <Navbar />
-                <p className="text-center text-[#99A9BB] mt-10">No results found.</p>
-            </div>
+            <p className="text-center text-[#99A9BB] mt-10">No results found.</p>
         );
     }
 
     return (
         <div>
-            <Navbar />
-
             {/* Header */}
             <div className="flex flex-col items-center mt-10 mb-5">
                 <h2 className="text-[#99A9BB] text-center">
@@ -40,17 +34,17 @@ export default function SearchResult({ decodedQuery, contents }: SearchResultPro
             <div className="flex justify-center">
                 <ul className="space-y-6 w-full max-w-4xl">
                     <AnimatePresence>
-                        {sortedContent.map((content,index) => (
+                        {sortedContent.map((content, index) => (
                             <motion.li
-                                initial ={{opacity:0, y:30}}
-                                animate ={{opacity:1, y:0}}
-                                exit={{opacity:0, y:-30}}
-                                transition={{
-                                    delay: index*0.05,
-                                    duration: 0.4,
-                                    ease: 'easeOut'
-                                }}
                                 key={`${content.media_type}-${content.id}`}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -30 }}
+                                transition={{
+                                    delay: index * 0.05,
+                                    duration: 0.4,
+                                    ease: "easeOut",
+                                }}
                                 className="flex flex-col gap-3 text-white"
                             >
                                 <Link
@@ -71,7 +65,9 @@ export default function SearchResult({ decodedQuery, contents }: SearchResultPro
                                         <span className="text-xl">
                                             {content.title} ({content.release_date?.slice(0, 4)})
                                         </span>
-                                        <p className="mt-2 text-[#99A9BB] text-sm">{content.overview}</p>
+                                        <p className="mt-2 text-[#99A9BB] text-sm">
+                                            {content.overview}
+                                        </p>
                                     </div>
                                 </Link>
 

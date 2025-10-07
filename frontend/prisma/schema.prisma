@@ -8,32 +8,31 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  username  String     @unique
-  email     String     @unique
+  id        String      @id @default(cuid())
+  username  String      @unique
+  email     String      @unique
   password  String?
-  createdAt DateTime   @default(now())
-  updateAt  DateTime   @updatedAt
+  createdAt DateTime    @default(now())
+  updateAt  DateTime    @updatedAt
   Watchlist Watchlist[]
 }
 
 model Watchlist {
-  id         String   @id @default(cuid())
+  id         String  @id @default(cuid())
   userId     String
   mediaId    String
   mediaType  String
-  title      String
   posterPath String?
-
-  user User @relation(fields: [userId], references: [id])
-  media Media @relation(fields: [mediaId], references: [id])
+  title      String
+  media      Media   @relation(fields: [mediaId], references: [id])
+  user       User    @relation(fields: [userId], references: [id])
 
   @@unique([userId, mediaId])
 }
 
 model Media {
-  id        String      @id @default(cuid())
-  title     String
+  id         String      @id @default(cuid())
+  title      String
   posterPath String?
   watchlists Watchlist[]
 }

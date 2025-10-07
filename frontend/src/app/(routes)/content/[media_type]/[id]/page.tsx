@@ -4,7 +4,6 @@ import Details from "@/components/contentPage/detailsComp";
 import fetchComp from "@/lib/fetchDetails";
 
 import Tabs from "@/components/contentPage/tabsComp";
-import Navbar from "@/components/homePage/Navbar";
 import WatchedMovie from "@/components/activity/watchMovie";
 import WatchedSeries from "@/components/activity/watchSeries";
 
@@ -46,7 +45,7 @@ export default async function ContentPage({
                 />
 
                 {/* Main poster image */}
-                <div className="absolute inset-0 flex justify-center items-start pt-20">
+                <div className="absolute inset-0 flex justify-center items-start">
                     <img
                         src={`https://image.tmdb.org/t/p/original${content.backdrop_path}`}
                         className="w-full sm:w-[90%] md:w-[90%] h-auto max-h-80 md:max-h-[48rem] object-cover rounded-xl shadow-lg"
@@ -78,7 +77,6 @@ export default async function ContentPage({
 
             {/* CONTENT */}
             <div className="relative z-10 px-4 md:px-10">
-                <Navbar />
 
                 <div className="flex flex-wrap md:flex-nowrap mt-20 md:mt-40 gap-6 md:gap-6 max-w-6xl mx-auto">
                     {/* POSTER */}
@@ -117,6 +115,7 @@ export default async function ContentPage({
                                         title: content.title || content.name,
                                         poster_path: content.poster_path,
                                         media_type: media_type,
+                                        release_date: content.release_date
                                     }}
                                 />
                             ) : (

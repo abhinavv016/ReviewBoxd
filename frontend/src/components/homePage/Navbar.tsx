@@ -1,13 +1,13 @@
-"use client"
-import React from "react";
 import CreateAccountTrigger from "@/components/trigger/CreateAccount"; // optional
 import SignInTrigger from "@/components/trigger/SigninTrigger";
 import SearchPage from "@/components/search/searchBar";
-import { useSession } from "next-auth/react";
 import UserDetails from "../profileDropdown/userDetails";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export default function Navbar() {
-    const {data: session} = useSession();
+
+export default async function Navbar() {
+    const session  = await getServerSession(authOptions);
     return (
         <div className="relative flex justify-center text-white p-4">
             <a className="font-bold font-sans text-4xl mx-auto md:mx-0" href="/">
@@ -20,7 +20,7 @@ export default function Navbar() {
                 </div>
                 {session?.user ? <UserDetails/> :<CreateAccountTrigger />}
                 <a className="hover:text-[#D7E0E8]" href="/films">FILMS</a>
-                <a className="hover:text-[#D7E0E8]" href="/journal">SHOWS</a>
+                <a className="hover:text-[#D7E0E8]" href="/shows">SHOWS</a>
                 <a className="hover:text-[#D7E0E8]" href="/lists">LISTS</a>
                 <SearchPage />
             </div>

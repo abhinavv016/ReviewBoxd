@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/login"
-  ],
+, "prisma-test.js"  ],
   "exclude": ["node_modules"]
 }

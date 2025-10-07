@@ -79,14 +79,14 @@ app.get("/:media_type/:id", async (req: Request, res: Response) => {
 
 app.get("/tv/:id/season/:season", async (req: Request, res: Response) => {
     const { id, season } = req.params;
-    try{
-        const response = await axios.get(`${TMDB_BASE_URL}/tv/${id}/season/${season}`, { 
-            headers: { 
-                Authorization: `Bearer ${TMDB_BEARER_TOKEN}` 
-            } 
+    try {
+        const response = await axios.get(`${TMDB_BASE_URL}/tv/${id}/season/${season}`, {
+            headers: {
+                Authorization: `Bearer ${TMDB_BEARER_TOKEN}`
+            }
         })
         res.json(response.data)
-    }catch(error: any){
+    } catch (error: any) {
         console.error("Failed fetching Seasons:", error.response?.status, error.response?.data || error.message);
         res.status(500).json({ error: "Failed to fetch Seasons" });
     }
@@ -95,14 +95,14 @@ app.get("/tv/:id/season/:season", async (req: Request, res: Response) => {
 app.get("/posters", async (req: Request, res: Response) => {
 
     try {
-        const pageRequests = Array.from({length: 10}, (_, i) => 
+        const pageRequests = Array.from({ length: 10 }, (_, i) =>
             axios.get(`${TMDB_BASE_URL}/movie/top_rated?page=${i + 1}`, {
-            headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
-        })
-    )
+                headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
+            })
+        )
         const response = await Promise.all(pageRequests)
 
-        const posters = response.flatMap(response => 
+        const posters = response.flatMap(response =>
             response.data.results.map(
                 (movie: { poster_path: string }) => `${IMAGE_BASE}${movie.poster_path}`
             )
@@ -114,8 +114,42 @@ app.get("/posters", async (req: Request, res: Response) => {
     }
 });
 
+app.get("/films/page/:page", async (req: Request, res: Response) => {
+    const page = parseInt(req.params.page!, 10) || 1;
+    const tmdbPagesPerRequest = 5;
+    const startTmdbPage = (page - 1) * tmdbPagesPerRequest + 1;
+
+    try {
+        const pageRequests = Array.from({ length: tmdbPagesPerRequest }, (_, i) =>
+            axios.get(`${TMDB_BASE_URL}/discover/movie`, {
+                headers: { Authorization: `Bearer ${TMDB_BEARER_TOKEN}` },
+                params: { 
+                    page: startTmdbPage + i,
+                    include_adult: false,
+                    sort_by: "vote_count.desc",
+                    language: "en-US"
+                },
+                
+            })
+        );
+
+        const responses = await Promise.all(pageRequests);
+        const movies = responses.flatMap((response) => response.data.results);
+        const uniqueMovies = Array.from(new Map(movies.map(m => [m.id, m])).values());
+        res.json({
+            currentPage: page,
+            fetchedTmdbPages: `${startTmdbPage}–${startTmdbPage + tmdbPagesPerRequest - 1}`,
+            totalMovies: movies.length,
+            movies:uniqueMovies
+        });
+    } catch (error: any) {
+        console.error("Failed to fetch movies from TMDB:", error.response?.data || error.message);
+        res.status(500).json({ error: "Failed to fetch movies from TMDB" });
+    }
+});
+
 // ---------------- Start Server ---------------- //
 const PORT = process.env.PORT_SERVER || 3001;
 app.listen(PORT, () => {
-    console.log(`✅ Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });

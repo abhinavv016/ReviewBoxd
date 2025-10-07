@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Example from "@/shadcnComp/spinners";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/homePage/Navbar";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Media, useWatchlistStore } from "@/app/store/useWatchlistStore";
@@ -52,7 +51,6 @@ export default function WatchlistGrid() {
 
     return (
         <>
-            <Navbar />
 
             <div className="flex justify-center mt-6 mb-4">
                 <button

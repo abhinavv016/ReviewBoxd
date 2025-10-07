@@ -1,11 +1,16 @@
+"use client"
 import EyeIcon from "@/icons/eyeIcon";
 import HeartIcon from "@/icons/heartIcon";
 import WatchLaterIcon from "@/icons/watchLaterIcon";
 import StarIcon from "@/icons/starIcon";
+import { useState } from "react";
+import Review from "../reviewLog/review";
+import { AnimatePresence } from "framer-motion";
 
 interface Media {
     id: string;
     title: string;
+    release_date: string;
     poster_path: string;
     media_type: string;
 }
@@ -15,6 +20,10 @@ interface WatchMovieProps {
 }
 
 export default function WatchedMovie({ media }: WatchMovieProps) {
+    const [isReviewVisible, setIsReviewVisible] = useState(false);
+
+    const handleOpenReview = () => setIsReviewVisible(true)
+    const handleCloseReview = () => setIsReviewVisible(false)
     return (
         <>
             <div className="relative">
@@ -90,7 +99,9 @@ export default function WatchedMovie({ media }: WatchMovieProps) {
                 </div>
 
                 <div className="border-t border-slate-100 w-full"></div>
-                <div className="flex justify-center items-center text-sm h-8 w-full hover:text-[#8FA1B9] cursor-pointer">
+                <div 
+                onClick={handleOpenReview}
+                className="flex justify-center items-center text-sm h-8 w-full hover:text-[#8FA1B9] cursor-pointer">
                     Review or log
                 </div>
 
@@ -104,6 +115,9 @@ export default function WatchedMovie({ media }: WatchMovieProps) {
                     Share
                 </div>
             </div>
+            <AnimatePresence>
+                {isReviewVisible && <Review onClose={handleCloseReview} movie={media}/>}
+            </AnimatePresence>
         </>
     );
 }

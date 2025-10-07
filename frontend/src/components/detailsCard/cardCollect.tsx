@@ -20,7 +20,7 @@ export default function Collect() {
         <div className="flex flex-col mt-10 px-4 md:px-20 lg:px-40">
 
             {/* Section Title */}
-            <div className="text-[#8898A9] text-md font-medium">
+            <div className="text-[#8898A9] text-base font-medium">
                 REVIEWBOXD LET'S YOU...
             </div>
             <div className="flex justify-center mt-1">

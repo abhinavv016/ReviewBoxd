@@ -1,6 +1,5 @@
 import Collect from "@/components/detailsCard/cardCollect";
 import HomeClient from "@/components/homePage/HomeClient";
-import Navbar from "@/components/homePage/Navbar";
 import axios from "axios";
 
 interface MediaProps {
@@ -22,7 +21,6 @@ export default async function Home() {
 
     return (
         <div>
-            <Navbar />
             <HomeClient movies={movies} tv={tv} />
             <Collect />
         </div>

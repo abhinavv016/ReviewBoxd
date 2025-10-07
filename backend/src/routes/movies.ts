@@ -124,26 +124,26 @@ router.get("/content/tv/:id/season/:season", async(req: Request, res: Response) 
     }
 })
 
-router.get("/content/:media_type/:id/keywords", async (req, res) =>{
-    const {media_type, id } = req.params;
-    if (!["movie", "tv"].includes(media_type)) {
-        return res.status(400).json({ error: "Invalid media_type" });
-    }
-    try {
-        const response = await axios.get(`${PROXY_BASE_URL}/${media_type}/${id}/keywords`);
-        res.json(response.data);
+router.get('/posters', async(req: Request, res: Response) => {
+    try{
+        const {data} = await axios.get(`${PROXY_BASE_URL}/posters`)
+        res.json(data);
     }catch(err){
-        res.status(500).json({ error: "Failed to fetch keywords" });
+        console.error(err);
+        res.status(500).json("Failed to fetch posters from proxy")
     }
 })
 
-router.get("/posters", async (req, res) => {
-  try {
-    const { data } = await axios.get(`${PROXY_BASE_URL}/posters`);
-    res.json(data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch posters from proxy" });
-  }
-});
+router.get("/films/page/:page", async(req: Request, res: Response) => {
+    const page = req.params.page ?? "1";
+
+    try{
+        const response = await axios.get(`${PROXY_BASE_URL}/films/page/${page}`);
+        const details = response.data
+        res.json(details);
+    }catch(err: any){
+        console.error("Failed in Fetching movies")
+        res.status(500).json({error: "Failed to fetch movies"});
+    }
+})
 export default router;

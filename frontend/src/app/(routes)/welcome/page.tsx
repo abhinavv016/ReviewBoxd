@@ -1,9 +1,5 @@
-import Navbar from "@/components/homePage/Navbar";
-
-
 export default function Welcome() {
     return <div>
-        <Navbar />
         <div className="text-[50px] mt-[30rem] text-white font-[700] text-center text-lg/[48px] ">
             <h2>
                 Take your first step into <br />
