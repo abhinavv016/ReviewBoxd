@@ -15,6 +15,9 @@ export default async function MoviesPage({ params }: { params: { page: string } 
   const data = await getMovies(page);
   const movies = data.movies;
 
+  const nextPage = page + 1;
+  const prevPage = page > 1 ? page - 1 : 1;
+
   return (<>
     <div className="px-40 mt-10 text-white font-medium text-xl">
       Films
@@ -38,5 +41,22 @@ export default async function MoviesPage({ params }: { params: { page: string } 
         </Link>
       ))}
     </div>
+
+    <div className="flex justify-between items-center px-40 mt-6 mb-10">
+            <Link
+                href={`/shows/page/${prevPage}`}
+                className={`bg-white text-black rounded-sm px-4 py-2 font-medium hover:bg-gray-300 transition ${
+                    page === 1 ? "opacity-50 pointer-events-none" : ""
+                }`}
+            >
+                Previous
+            </Link>
+            <Link
+                href={`/shows/page/${nextPage}`}
+                className="bg-white text-black rounded-sm px-4 py-2 font-medium hover:bg-gray-300 transition"
+            >
+                Next
+            </Link>
+        </div>
   </>);
 }

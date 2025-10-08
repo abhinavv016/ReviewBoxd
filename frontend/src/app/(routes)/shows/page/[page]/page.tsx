@@ -15,6 +15,9 @@ export default async function ShowsPage({ params }: { params: { page: string } }
     const data = await getShows(page);
     const shows = data.shows;
 
+    const nextPage = page + 1;
+    const prevPage = page > 1 ? page - 1 : 1;
+
     return (<>
         <div className="px-40 mt-10 text-white font-medium text-xl">
             Shows
@@ -37,6 +40,27 @@ export default async function ShowsPage({ params }: { params: { page: string } }
                     </div>
                 </Link>
             ))}
+        </div>
+
+        <div className="flex justify-center mt-1">
+            <div className="h-px w-[70rem] bg-[#99A9BB]"></div>
+        </div>
+
+        <div className="flex justify-between items-center px-40 mt-3">
+            <Link
+                href={`/shows/page/${prevPage}`}
+                className={`bg-white text-black rounded-sm px-4 py-2 font-medium hover:bg-gray-300 transition ${
+                    page === 1 ? "opacity-50 pointer-events-none" : ""
+                }`}
+            >
+                Previous
+            </Link>
+            <Link
+                href={`/shows/page/${nextPage}`}
+                className="bg-white text-black rounded-sm px-4 py-2 font-medium hover:bg-gray-300 transition"
+            >
+                Next
+            </Link>
         </div>
     </>);
 }

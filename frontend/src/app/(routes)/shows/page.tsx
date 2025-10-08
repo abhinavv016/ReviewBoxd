@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Shows() {
     return (<>
         <div className="flex justify-between px-42 mt-10 text-white font-medium text-xl">
-            <div>Shows</div>
+            <div>Trending Shows this Week</div>
             <Link 
                 href={"/shows/page/1"}
                 className="font-light text-base">more</Link>
