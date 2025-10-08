@@ -146,4 +146,19 @@ router.get("/films/page/:page", async(req: Request, res: Response) => {
         res.status(500).json({error: "Failed to fetch movies"});
     }
 })
+
+router.get("/shows/page/:page", async(req: Request, res: Response) => {
+    const page = req.params.page ?? "1";
+
+    try{
+        const response = await axios.get(`${PROXY_BASE_URL}/shows/page/${page}`);
+        const details = response.data
+        res.json(details);
+    }catch(err: any){
+        console.error("Failed in Fetching shows")
+        res.status(500).json({error: "Failed to fetch shows"});
+    }
+})
+
+
 export default router;
