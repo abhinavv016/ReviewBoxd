@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import Example from "@/shadcnComp/spinners";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Media, useWatchlistStore } from "@/app/store/useWatchlistStore";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export default function WatchlistGrid() {
     const router = useRouter();
@@ -40,7 +40,7 @@ export default function WatchlistGrid() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-black-600/90">
-                <Example />
+                <Spinner variant="infinite" />
             </div>
         );
     }
