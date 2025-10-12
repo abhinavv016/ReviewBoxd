@@ -7,10 +7,13 @@ dotenv.config({ path: ".env" });
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+
 
 const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/original";
+const PORT = process.env.PORT_SERVER || 3001;
 
 if (!TMDB_BEARER_TOKEN) {
     throw new Error("❌ TMDB_BEARER_TOKEN is missing in .env");
@@ -184,7 +187,6 @@ app.get("/shows/page/:page", async (req: Request, res: Response) => {
 
 
 // ---------------- Start Server ---------------- //
-const PORT = process.env.PORT_SERVER || 3001;
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

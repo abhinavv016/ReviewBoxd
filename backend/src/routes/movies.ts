@@ -1,14 +1,15 @@
 import { Router, Request, Response } from "express";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = Router();
-const api_key = process.env.TMDB_API_KEY;
 
-const PROXY_BASE_URL = "http://localhost:3001";
+const PROXY_URL = process.env.PROXY_BASE_URL;
 
 router.get("/movies/popular", async (req: Request, res: Response) => {
     try {
-        const response = await axios.get(`${PROXY_BASE_URL}/movies/popular`);
+        const response = await axios.get(`${PROXY_URL}/movies/popular`);
         const results =
             response.data.results?.map((movie: any) => ({
                 id: movie.id,
@@ -29,7 +30,7 @@ router.get("/movies/popular", async (req: Request, res: Response) => {
 
 router.get("/tv/popular", async (req: Request, res: Response) => {
     try {
-        const response = await axios.get(`${PROXY_BASE_URL}/tv/popular`);
+        const response = await axios.get(`${PROXY_URL}/tv/popular`);
         const results =
             response.data.results?.map((tv: any) => ({
                 id: tv.id,
@@ -55,7 +56,7 @@ router.get("/search", async (req: Request, res: Response) => {
         return res.status(400).json({ error: "Query is required!!" });
     }
     try {
-        const response = await axios.get(`${PROXY_BASE_URL}/search`, {
+        const response = await axios.get(`${PROXY_URL}/search`, {
             params: { query },
         });
         const { content } = response.data;
@@ -89,7 +90,7 @@ router.get("/content/:media_type/:id", async (req, res) => {
     }
 
     try {
-        const response = await axios.get(`${PROXY_BASE_URL}/${media_type}/${id}`);
+        const response = await axios.get(`${PROXY_URL}/${media_type}/${id}`);
         const{details, crew} = response.data
         res.json({
             details,
@@ -109,7 +110,7 @@ router.get("/content/tv/:id/season/:season", async(req: Request, res: Response) 
     const{ id, season } = req.params;
 
     try {
-        const response = await axios.get(`${PROXY_BASE_URL}/tv/${id}/season/${season}`);
+        const response = await axios.get(`${PROXY_URL}/tv/${id}/season/${season}`);
         const Seasons = response.data
         res.json({
             Seasons
@@ -126,7 +127,7 @@ router.get("/content/tv/:id/season/:season", async(req: Request, res: Response) 
 
 router.get('/posters', async(req: Request, res: Response) => {
     try{
-        const {data} = await axios.get(`${PROXY_BASE_URL}/posters`)
+        const {data} = await axios.get(`${PROXY_URL}/posters`)
         res.json(data);
     }catch(err){
         console.error(err);
@@ -138,7 +139,7 @@ router.get("/films/page/:page", async(req: Request, res: Response) => {
     const page = req.params.page ?? "1";
 
     try{
-        const response = await axios.get(`${PROXY_BASE_URL}/films/page/${page}`);
+        const response = await axios.get(`${PROXY_URL}/films/page/${page}`);
         const details = response.data
         res.json(details);
     }catch(err: any){
@@ -151,7 +152,7 @@ router.get("/shows/page/:page", async(req: Request, res: Response) => {
     const page = req.params.page ?? "1";
 
     try{
-        const response = await axios.get(`${PROXY_BASE_URL}/shows/page/${page}`);
+        const response = await axios.get(`${PROXY_URL}/shows/page/${page}`);
         const details = response.data
         res.json(details);
     }catch(err: any){
