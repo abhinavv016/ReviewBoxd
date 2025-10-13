@@ -6,12 +6,15 @@ import fetchComp from "@/lib/fetchDetails";
 import Tabs from "@/components/contentPage/tabsComp";
 import WatchedMovie from "@/components/activity/watchMovie";
 import WatchedSeries from "@/components/activity/watchSeries";
+import { getServerSession } from "next-auth";
+import NotUser from "@/components/activity/notSigninUser";
 
 export default async function ContentPage({
     params,
 }: {
     params: Promise<{ media_type: string; id: string }>;
 }) {
+    const session = await getServerSession()
     const { media_type, id } = await params;
 
     const result = await fetchComp({ media_type, id });
@@ -108,14 +111,16 @@ export default async function ContentPage({
                                 </span>
                             )}
 
-                            {directors ? (
+                            {!session ? (
+                                <NotUser />
+                            ) : directors ? (
                                 <WatchedMovie
                                     media={{
                                         id: content.id,
                                         title: content.title || content.name,
                                         poster_path: content.poster_path,
                                         media_type: media_type,
-                                        release_date: content.release_date
+                                        release_date: content.release_date,
                                     }}
                                 />
                             ) : (

@@ -1,5 +1,4 @@
 "use client"
-import { RememberMeCheckbox } from "@/components/ui/checkbox";
 import CrossIcons from "@/icons/crossIcon";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
@@ -49,14 +48,14 @@ export default function LoginForm({ onClose }: LoginFormProps) {
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60"
             key="modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleOverlayClick}
-            >
+        >
             <div className="fixed w-[45rem] top-5 right-55 bg-[#3B3D54] p-6 rounded-lg shadow-2xl">
                 <form className="flex gap-3 space-y-4" onSubmit={handleSubmit}>
                     <div className="flex mt-7 cursor-pointer" onClick={onClose}>
@@ -71,7 +70,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
                             type="text"
                             id="username"
                             name="username"
-                            className="w-full p-2 mt-1 bg-[#2C3440] rounded-lg"
+                            className="w-full text-base font-semibold p-2 mt-1 bg-[#2C3440] rounded-lg"
                             value={form.username}
                             onChange={handleChange}
                         />
@@ -85,33 +84,38 @@ export default function LoginForm({ onClose }: LoginFormProps) {
                             type="password"
                             id="password"
                             name="password"
-                            className="w-full p-2 mt-1 bg-[#2C3440] rounded-lg"
+                            className="w-full text-base font-semibold p-2 mt-1 bg-[#2C3440] rounded-lg"
                             value={form.password}
                             onChange={handleChange}
                         />
                     </div>
 
-                    <div className="absolute ml-85 w-20 h-5 text-sm text-[#04AB1D] cursor-pointer hover:text-white">
+                    <div className="absolute ml-85 w-20 h-5 text-sm font-semibold text-[#04AB1D] cursor-pointer hover:text-white ">
                         Forgotten?
                     </div>
 
                     <div className="flex flex-col gap-2 items-center ml-8">
                         <button
                             type="submit"
-                            className="cursor-pointer w-25 bg-[#04AB1D] hover:bg-[#008814] px-3 py-1.5 text-white font-bold rounded-sm"
+                            className="cursor-pointer w-35 bg-[#04AB1D] hover:bg-[#008814] px-3 py-1.5 text-white font-bold rounded-sm"
                             disabled={loading}>
-                            {loading ? "SIGN IN" : "SIGN IN"}
+                            {loading ? (
+                                <div className="text-base font-semibold">SIGNING IN</div>
+                            ) : (
+                                <div className="text-base font-semibold">SIGN IN</div>
+                            )}
                         </button>
                         <button
                             type="button"
-                            onClick={() => signIn("google" , { 
-                                prompt: "select_account" , 
-                                callbackUrl: "/", 
-                                redirect: true}) }
+                            onClick={() => signIn("google", {
+                                prompt: "select_account",
+                                callbackUrl: "/",
+                                redirect: true
+                            })}
                             className="flex items-center cursor-pointer justify-center gap-2 w-50 h-9 ml-2 bg-white text-black rounded-sm shadow hover:bg-gray-200"
                         >
                             <FcGoogle size={25} />
-                            <span>Sign in with Google</span>
+                            <span className="text-base font-semibold">Sign in with Google</span>
                         </button>
                     </div>
                 </form>

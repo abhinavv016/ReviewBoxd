@@ -15,6 +15,7 @@ model User {
   createdAt DateTime    @default(now())
   updateAt  DateTime    @updatedAt
   Watchlist Watchlist[]
+  Watched   WatchedMovie[]
 }
 
 model Watchlist {
@@ -35,4 +36,19 @@ model Media {
   title      String
   posterPath String?
   watchlists Watchlist[]
+  watchedBy  WatchedMovie[]
+}
+
+model WatchedMovie {
+  id         Int       @id @default(autoincrement())
+  userId     String
+  mediaId    String
+  watchedAt  DateTime  @default(now())
+  liked      Boolean   @default(false)
+  review     String?
+  rating     Int?
+  media      Media     @relation(fields: [mediaId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
+  
+  @@unique([userId, mediaId])
 }

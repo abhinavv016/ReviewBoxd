@@ -6,6 +6,7 @@ import WatchLaterIcon from "@/icons/watchLaterIcon";
 import SeasonsComp from "../Carousal/seasonsComp";
 import { AnimatePresence } from "framer-motion";
 import { useUiState } from "@/app/store/useStore";
+import { usePathname } from "next/navigation";
 
 interface Media {
     id: string;
@@ -20,6 +21,14 @@ interface WatchSeriesProps {
 
 export default function WatchedSeries({ media }: WatchSeriesProps) {
     const { isVisible, open, close } = useUiState();
+    const pathname = usePathname();
+    const base = "http://localhost:3000";
+
+    const links = base + pathname;
+    const copylink = (_e: any) => {
+        navigator.clipboard.writeText(links)
+        alert("Copied to clipboard")
+    }
 
     return (
         <>
@@ -112,7 +121,7 @@ export default function WatchedSeries({ media }: WatchSeriesProps) {
                 </div>
 
                 <div className="border-t border-slate-100 w-full"></div>
-                <div className="flex justify-center items-center text-sm h-8 w-full cursor-pointer hover:text-[#797C7F]">
+                <div onClick={copylink} className="flex justify-center items-center text-sm h-8 w-full cursor-pointer hover:text-[#797C7F]">
                     Share
                 </div>
             </div>
