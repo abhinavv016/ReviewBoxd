@@ -8,13 +8,14 @@ import WatchedMovie from "@/components/activity/watchMovie";
 import WatchedSeries from "@/components/activity/watchSeries";
 import { getServerSession } from "next-auth";
 import NotUser from "@/components/activity/notSigninUser";
+import { authOptions } from "@/lib/auth";
 
 export default async function ContentPage({
     params,
 }: {
     params: Promise<{ media_type: string; id: string }>;
 }) {
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions);
     const { media_type, id } = await params;
 
     const result = await fetchComp({ media_type, id });
