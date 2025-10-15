@@ -9,15 +9,14 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Not Authenticated" }, { status: 401 });
     }
 
-    const { action, mediaId, reviewText, rating } = await req.json();
+    const { action, mediaId, content, rating } = await req.json();
     const userId = session.user.id;
 
     if (!mediaId) {
         return NextResponse.json({ error: "Missing mediaId" }, { status: 400 });
     }
-
     const watched = await prisma.watchedMovie.findUnique({
-        where: { userId_mediaId: { userId, mediaId } },
+        where: { userId_mediaId: { userId, mediaId: String(mediaId) } },
     });
 
     if (!watched) {
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
     switch (action) {
         case "toggleLike": {
             const updated = await prisma.watchedMovie.update({
-                where: { userId_mediaId: { userId, mediaId } },
+                where: { userId_mediaId: { userId, mediaId: String(mediaId) } },
                 data: { liked: !watched.liked },
             });
 
@@ -38,18 +37,26 @@ export async function POST(req: NextRequest) {
         }
 
         case "saveReview": {
-            const updated = await prisma.watchedMovie.update({
-                where: { userId_mediaId: { userId, mediaId } },
-                data: {
-                    review: reviewText ?? watched.review,
-                    rating: rating ?? watched.rating,
+            const review = await prisma.reviews.upsert({
+                where: { userId_mediaId: { userId, mediaId: String(mediaId) } },
+                update: {
+                    content: content ?? undefined,
+                    rating: rating ?? undefined,
+                    updatedAt: new Date(),
+                },
+                create: {
+                    userId,
+                    mediaId: String(mediaId),
+                    watchedMovieId: watched.id,
+                    content: content ?? "",
+                    rating: rating ?? null,
                 },
             });
 
             return NextResponse.json({
                 message: "Review saved successfully",
-                review: updated.review,
-                rating: updated.rating,
+                content: review.content,
+                rating: review.rating,
             });
         }
 

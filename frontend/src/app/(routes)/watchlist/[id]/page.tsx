@@ -83,7 +83,7 @@ export default function WatchlistGrid() {
 
             <div className="grid justify-center grid-cols-5 ml-70 mr-70 gap-4 mt-5 mx-20">
                 {filteredList.length > 0 ? (
-                    filteredList.map((media) => (
+                    filteredList?.map((media) => (
                         <Link key={media.id} href={`/content/${activeTab}/${media.id}`}>
                             <motion.div
                                 whileHover={{

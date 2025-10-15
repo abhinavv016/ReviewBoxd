@@ -34,7 +34,7 @@ export default function HeartIcon({
         console.log("media.id being sent:", media.id);
         
         try {
-            const res = await fetch("/api/watchedMovie/review", {
+            const res = await fetch("/api/watchedMovie/like", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "toggleLike", mediaId: String(media.id) }),

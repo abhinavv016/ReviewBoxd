@@ -71,18 +71,18 @@ export async function GET(req: NextRequest) {
     }
 
     try {
-        const watchlist = await prisma.watchedMovie.findMany({
+        const watchedMovie = await prisma.watchedMovie.findMany({
             where: { userId },
             include: {
                 media: true
             }
         })
 
-        return NextResponse.json({ watchlist })
+        return NextResponse.json({ watchedMovie })
     } catch (err) {
         console.error(err)
         return NextResponse.json({
-            error: "Failed to Fetch Watchlist"
+            error: "Failed to Fetch WatchedMovie"
         }, { status: 500 })
     }
 }

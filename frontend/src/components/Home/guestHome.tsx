@@ -1,7 +1,7 @@
 import axios from "axios";
 import Collect from "../detailsCard/cardCollect";
 import HomeClient from "../homePage/HomeClient";
-import { getRecentReviews } from "@/lib/recentReviews";
+// import { getRecentReviews } from "@/lib/recentReviews";
 
 interface MediaProps {
     id: number;
@@ -18,7 +18,7 @@ export default async function GuestHome() {
 
     const movies = moviesRes.data.slice(0, 6);
     const tv = tvRes.data.slice(0, 6);
-    const recentReviews = await getRecentReviews();
+    // const recentReviews = await getRecentReviews();
     return (
         <div>
             <HomeClient movies={movies} tv={tv} />
@@ -28,7 +28,7 @@ export default async function GuestHome() {
                     JUST REVIEWED
                 </div>
                 <div className="h-px w-full max-w-6xl bg-[#99A9BB] mt-1 mx-auto"></div>
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
 
                     <div className="flex flex-row gap-4 md:gap-5 py-4 max-w-6xl overflow-x-auto md:overflow-visible px-4 md:px-0">
                         {recentReviews.map((item) => (
@@ -41,7 +41,7 @@ export default async function GuestHome() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col items-center mt-20 text-white">
                     <p className="text-3xl">

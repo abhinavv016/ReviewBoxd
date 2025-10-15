@@ -96,7 +96,7 @@ export default function CreateAccount({ onClose }: AccountProps) {
                                 name="password"
                                 id="password"
                                 value={form.password}
-                                onChange={handleChange} // ✅ now works
+                                onChange={handleChange}
                                 className="h-[31px] w-[190px] p-3 bg-[#CCDCEE] rounded-[3px] mb-5 text-black"
                             />
                         </div>

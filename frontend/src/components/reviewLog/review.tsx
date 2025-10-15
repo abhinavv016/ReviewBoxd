@@ -39,13 +39,13 @@ export default function Review({ onClose, media }: ReviewProps) {
         setIsSubmitting(true);
 
         try {
-            const res = await fetch("/api/watchedMovie/review", {
+            const res = await fetch("/api/review", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     action: "saveReview",
                     mediaId: String(media.id),
-                    reviewText,
+                    content: reviewText,
                     rating
                 })
             });
